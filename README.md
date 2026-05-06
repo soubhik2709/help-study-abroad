@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Help Study Abroad Dashboard
+
+A modern admin dashboard built using Next.js, TypeScript, Zustand, and Material UI (MUI).
+
+The project includes authentication flow, protected routes, users dashboard, products dashboard, search, filtering, pagination, and responsive UI components.
+
+---
+
+## Features
+
+- Admin Login Authentication
+- Protected Dashboard Routes
+- Zustand State Management
+- Responsive UI using Material UI (MUI)
+- Users Dashboard
+- Products Dashboard
+- Search Functionality
+- Pagination
+- Product Category Filtering
+- Dynamic Routing Structure
+
+---
+
+## Tech Stack
+
+- Next.js 16
+- TypeScript
+- Zustand
+- Material UI (MUI)
+- React
+
+---
+
+## Project Structure
+
+```text
+app/
+  login/
+  dashboard/
+    users/
+    products/
+
+components/
+store/
+data/
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Login Credentials
 
-To learn more about Next.js, take a look at the following resources:
+```text
+username: admin
+password: 1234
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
+Currently, the project uses local mock data from the `data/` folder for frontend development and testing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Initially, DummyJSON APIs were integrated for authentication and dashboard data. However, due to CORS-related browser restrictions during local frontend development, mock local data was temporarily implemented to ensure stable testing and uninterrupted UI development.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The project architecture is designed so the local mock data can later be replaced easily with real APIs, backend services, or DummyJSON endpoints in future development.
+
+---
+
+## Future Improvements
+
+- Real backend integration
+- Database support
+- NextAuth authentication
+- API route architecture
+- User detail pages
+- Product detail pages
+- Deployment on Vercel
+
+---
+
+## Author
+
+Built for frontend learning, dashboard architecture practice, and portfolio development.
