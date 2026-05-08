@@ -1,5 +1,5 @@
 "use client";
-import ProtectedRoute from "@/components/ProtectedRoute";
+// import ProtectedRoute from "@/components/ProtectedRoute";
 import { useEffect, useState, useMemo } from "react";
 import { useUserStore, User } from "@/store/userStore";
 import {
@@ -13,6 +13,7 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
+import Link from "next/link"
 
 // It delays execution until user stops typing
 function debounce<Args extends unknown[]>(
@@ -28,7 +29,7 @@ function debounce<Args extends unknown[]>(
 }
 
 export default function UsersPage() {
-  const { users, fetchUsers, loading ,total} = useUserStore();
+  const { users, fetchUsers, loading, total } = useUserStore();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
 
@@ -55,11 +56,77 @@ export default function UsersPage() {
   //   return <p>Error: Could not retrieve users.</p>;
   // }
 
-console.log("the userr in user page", users);
+  console.log("the userr in user page", users);
 
   return (
-    <ProtectedRoute>
+    // <ProtectedRoute>
+    //   <Box sx={{ p: 3 }}>
+    //     <Typography variant="h4" sx={{ mb: 2 }}>
+    //       Users
+    //     </Typography>
+    //     <TextField
+    //       label="Search Users"
+    //       fullWidth
+    //       onChange={(e) => handleSearch(e.target.value)}
+    //       sx={{ mb: 2 }}
+    //     />
+    //     <Table>
+    //       <TableHead>
+    //         <TableRow>
+    //           <TableCell>Name</TableCell>
+    //           <TableCell>Email</TableCell>
+    //           <TableCell>Gender</TableCell>
+    //           <TableCell>Phone</TableCell>
+    //           <TableCell>Company</TableCell>
+    //           <TableCell>Action</TableCell>
+    //         </TableRow>
+    //       </TableHead>
+
+    //       <TableBody>
+    //         {users.map((user: User) => (
+    //           <TableRow key={user.id}>
+    //             <TableCell>{user.firstName}</TableCell>
+    //             <TableCell>{user.email}</TableCell>
+    //             <TableCell>{user.gender}</TableCell>
+    //             <TableCell>{user.phone}</TableCell>
+    //             <TableCell>{user.company?.name}</TableCell>
+    //             <TableCell>
+    //               <Button
+    //                 href={`/dashboard/users/${user.id}`}
+    //                 size="small"
+    //                 variant="outlined"
+    //               >
+    //                 View
+    //               </Button>
+    //             </TableCell>
+    //           </TableRow>
+    //         ))}
+    //         {!loading && users?.length === 0 && (
+    //           <TableRow>
+    //             <TableCell colSpan={6} align="center">
+    //               No users found.
+    //             </TableCell>
+    //           </TableRow>
+    //         )}
+    //       </TableBody>
+    //     </Table>
+    //     <Box sx={{ mt: 2 }}>
+    //       <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
+    //         Prev
+    //       </Button>
+
+    //       <Button
+    //       disabled ={(page +1)*10 >= total}
+    //       onClick={() => setPage(page + 1)}>Next</Button>
+    //     </Box>
+    //   </Box>
+    // </ProtectedRoute>
+
+    <>
       <Box sx={{ p: 3 }}>
+        <Button component={Link} href="/dashboard" variant="text" size="small" sx={{mb:2}}>
+          / dashboard
+        </Button>
         <Typography variant="h4" sx={{ mb: 2 }}>
           Users
         </Typography>
@@ -103,7 +170,7 @@ console.log("the userr in user page", users);
             {!loading && users?.length === 0 && (
               <TableRow>
                 <TableCell colSpan={6} align="center">
-                  No users found. 
+                  No users found.
                 </TableCell>
               </TableRow>
             )}
@@ -115,11 +182,14 @@ console.log("the userr in user page", users);
           </Button>
 
           <Button
-          disabled ={(page +1)*10 >= total}
-          onClick={() => setPage(page + 1)}>Next</Button>
+            disabled={(page + 1) * 10 >= total}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </Button>
         </Box>
       </Box>
-    </ProtectedRoute>
+    </>
   );
 }
 
