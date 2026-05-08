@@ -14,7 +14,7 @@ interface UserState {
   users: User[];
   total: number;
   cache: Record<string, User[]>;
-  loading:boolean;
+  loading: boolean;
   fetchUsers: (limit: number, skip: number, search?: string) => Promise<void>;
 }
 
@@ -24,12 +24,14 @@ export const useUserStore = create<UserState>((set, get) => ({
   cache: {},
   loading: false,
   fetchUsers: async (limit, skip, search = "") => {
+    if (get().loading) return;
     set({ loading: true });
     const cacheKey = `${skip}-${search}`;
 
     if (get().cache[cacheKey]) {
       console.log("The cache we got", get().cache[cacheKey]); //Testing
-      set({ users: get().cache[cacheKey], loading:false });
+
+      set({ users: get().cache[cacheKey], loading: false });
       return;
     }
 
@@ -45,9 +47,17 @@ export const useUserStore = create<UserState>((set, get) => ({
         throw new Error(`Failed to fetch users: ${res.status}`);
       }
       const data = await res.json();
+      // console.log("Full API Data:", data);
+
+      if (data.mesage && data.mesage.includes("limit exceeded")) {
+        set({ loading: false });
+        alert("Too many requests! Please wait a moment.");
+        return;
+      }
 
       set((state) => ({
-        users: data.users || [],//if API returns empty array , diff structure, error mesage instead of users then users become undefined so use empty array instead.
+        //why  i write here state? what is state?
+        users: data.users || [], //if API returns empty array , diff structure, error mesage instead of users then users become undefined so use empty array instead.
         total: data.total || 0,
         cache: { ...state.cache, [cacheKey]: data.users || [] },
         loading: false,
@@ -59,5 +69,3 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 }));
 
-
-// i dont want to use the || [] cause this will stop the execution and not showing the results ultimately, but  i want results after loading

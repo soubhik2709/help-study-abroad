@@ -15,19 +15,20 @@ import {
 } from "@mui/material";
 
 // It delays execution until user stops typing
-function debounce<T extends (...args: unknown[]) => void>(
-  fn: T,
+function debounce<Args extends unknown[]>(
+  fn: (...args: Args) => void,
   delay: number,
 ) {
   let timer: ReturnType<typeof setTimeout>;
-  return (...args: Parameters<T>) => {
+
+  return (...args: Args) => {
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };
 }
 
 export default function UsersPage() {
-  const { users, fetchUsers, loading } = useUserStore();
+  const { users, fetchUsers, loading ,total} = useUserStore();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
 
@@ -54,10 +55,12 @@ export default function UsersPage() {
   //   return <p>Error: Could not retrieve users.</p>;
   // }
 
+console.log("the userr in user page", users);
+
   return (
     <ProtectedRoute>
-      <Box p={3}>
-        <Typography variant="h4" mb={2}>
+      <Box sx={{ p: 3 }}>
+        <Typography variant="h4" sx={{ mb: 2 }}>
           Users
         </Typography>
         <TextField
@@ -100,18 +103,20 @@ export default function UsersPage() {
             {!loading && users?.length === 0 && (
               <TableRow>
                 <TableCell colSpan={6} align="center">
-                  No users found.
+                  No users found. 
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
-        <Box mt={2}>
+        <Box sx={{ mt: 2 }}>
           <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
             Prev
           </Button>
 
-          <Button onClick={() => setPage(page + 1)}>Next</Button>
+          <Button
+          disabled ={(page +1)*10 >= total}
+          onClick={() => setPage(page + 1)}>Next</Button>
         </Box>
       </Box>
     </ProtectedRoute>
