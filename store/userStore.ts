@@ -31,7 +31,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       const cached = get().cache[cacheKey];
       console.log("The cache we got", cached); //Testing
 
-      set({ users:cached.users, total:cached.total});
+      set({ users:cached.users, total:cached.total,loading: false});
       return;
     }
     set({ loading: true });

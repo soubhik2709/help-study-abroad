@@ -15,7 +15,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Link from "next/link";
-
+import UserRow from '@/components/UserRow';
+import { useShallow } from "zustand/shallow";
 // It delays execution until user stops typing
 function debounce<Args extends unknown[]>(
   fn: (...args: Args) => void,
@@ -30,7 +31,14 @@ function debounce<Args extends unknown[]>(
 }
 
 export default function UsersPage() {
-  const { users, fetchUsers, loading, total } = useUserStore();
+  const { users, fetchUsers, loading, total } = useUserStore(
+ useShallow((state)=>({
+  users:state.users,
+  fetchUsers:state.fetchUsers,
+  loading:state.loading,
+  total: state.total,
+ }))
+  );
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -59,7 +67,7 @@ export default function UsersPage() {
   // }
 
   // console.log("the userr in user page", users);
-  console.log("The page number is", page);
+  // console.log("The page number is", page);
 
   return (
     <>
@@ -104,26 +112,10 @@ export default function UsersPage() {
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
-
+      
+          {/* ussers   */}
           <TableBody>
-            {users.map((user: User) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.firstName}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.gender}</TableCell>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell>{user.company?.name}</TableCell>
-                <TableCell>
-                  <Button
-                    href={`/dashboard/users/${user.id}`}
-                    size="small"
-                    variant="outlined"
-                  >
-                    View
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {users.map((user: User) => <UserRow key ={user.id} user={user}/>)}
             {!loading && users?.length === 0 && (
               <TableRow>
                 <TableCell colSpan={6} align="center">
@@ -142,6 +134,8 @@ export default function UsersPage() {
             )}
           </TableBody>
         </Table>
+
+        {/* Pagination */}
         <Box sx={{ mt: 3, display: "flex", alignItems: "center", gap: 2 }}>
           <Button disabled={page === 0} onClick={() => setPage(page - 1)}>
             Prev
