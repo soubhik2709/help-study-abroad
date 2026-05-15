@@ -29,6 +29,8 @@ return Response.json(data);
 
 /* 
 
+1.why use Proxy  in the URL name:
+
 using fetch by using useEffect , browser directly talk to sever: like dummyjson which is on different url, so browser restrict & dont give back to the data as security reasons,so thats why its using the proxy server
 
 Step-by-Step What Happens
@@ -107,4 +109,159 @@ using:
 return Response.json(data);
 
 
+
+we can give any name except proxy, this route act as middleman between frontend and external API.
+
+Instead of:
+
+Browser → DummyJSON
+
+you now do:
+
+Browser → Your Next.js API → DummyJSON
+
+Your API route forwards/proxies the request.
+
+That’s why developers commonly name it:
+
+proxy
+
+
+2. What is relative URL?
+
+This:
+
+fetch("/api/proxy/products")
+
+is a relative URL.
+
+Because:
+
+no domain written
+Browser automatically adds current domain
+
+Suppose app running on:
+
+http://localhost:3000
+
+Then:
+
+fetch("/api/proxy/products")
+
+becomes:
+
+http://localhost:3000/api/proxy/products
+
+Relative means
+relative to current website
+
+---------------------------------------------------------------------------
+2.What is CORS?
+
+CORS =
+
+Cross-Origin Resource Sharing
+
+Browser security system.
+
+What is origin?
+
+Origin means combination of:
+
+protocol + domain + port
+
+Example:
+
+http://localhost:3000
+
+Different from:
+
+https://dummyjson.com
+
+Different origins.
+
+Browser security rule
+
+Browser says:
+
+"Website A cannot freely access Website B data."
+
+for security.
+
+Why?
+
+Imagine evil site:
+
+evil.com
+
+could directly read:
+
+gmail.com
+bank.com
+facebook.com
+
+responses from your browser.
+
+Very dangerous.
+
+So browser blocks many cross-origin requests
+
+Unless server explicitly allows it.
+
+Example of blocked request
+
+Frontend:
+
+localhost:3000
+
+tries:
+
+fetch("https://dummyjson.com/products")
+
+Browser checks:
+
+"Did DummyJSON allow localhost:3000?"
+
+If not:
+
+CORS error
+Why proxy fixes it
+
+Now browser only talks to:
+
+localhost:3000
+
+same origin.
+
+No CORS issue.
+
+Flow now
+
+Browser:
+
+localhost:3000
+→ localhost:3000/api/proxy/products
+
+Allowed ✅
+
+Then SERVER talks to DummyJSON.
+
+Important:
+
+servers are NOT restricted by browser CORS rules
+
+So Next.js server can fetch external APIs freely.
+
+So proxy solves CORS because:
+browser no longer contacts external API directly
+
+Server does it instead.
+
+CORS is enforced by:
+
+BROWSER
+
+NOT by Node.js server.
+
+That’s why server-side fetch works.
 */

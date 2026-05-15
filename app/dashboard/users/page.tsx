@@ -58,16 +58,6 @@ export default function UsersPage() {
     [],
   );
 
-  // if (loading && (!users || users.length === 0))
-  //   return <p>Loading Users Details...</p>;
-
-  // If it's NOT loading but users is still missing/null, show an error or empty state
-  // if (!users) {
-  //   return <p>Error: Could not retrieve users.</p>;
-  // }
-
-  // console.log("the userr in user page", users);
-  // console.log("The page number is", page);
 
   return (
     <>
@@ -177,4 +167,92 @@ we always define generic function previously
 
 T extends (...args:unknown[]) 
 any type of args will expect as an array format
+
+
+How useShallow works?
+useShallow prevents unnecessary rerenders
+
+NOT:
+
+prevent state changes
+
+State can still change normally.
+
+Your understanding now (corrected)
+Outer object
+obj1 !== obj2
+
+because:
+
+new wrapper object created every render
+
+Different outer reference.
+
+Inner properties
+obj1.users === obj2.users
+
+because:
+
+both point to SAME users array reference
+So useShallow says:
+"I don't care that outer wrapper object changed."
+
+Instead it checks:
+
+Did actual selected values change?
+Since:
+users reference same
+loading same
+total same
+fetchUsers same
+
+then:
+
+skip rerender
+WITHOUT useShallow
+
+Zustand only checks:
+
+oldObject === newObject
+
+FALSE.
+
+Because wrapper recreated.
+
+So:
+
+rerender happens unnecessarily
+WITH useShallow
+
+Zustand checks:
+
+old.users === new.users
+old.loading === new.loading
+...
+
+All same.
+
+So:
+
+no rerender needed
+BIG IMPORTANT CONCEPT
+
+useShallow optimizes:
+
+selector result comparison
+
+NOT actual state updates.
+
+Final perfect mental model
+
+Without shallow:
+
+new wrapper object
+→ rerender
+
+With shallow:
+
+ignore wrapper object
+check inner top-level references/values
+→ rerender only if actual selected data changed
 */

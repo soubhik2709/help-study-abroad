@@ -29,53 +29,6 @@ export default function UserDetailPage() {
   if (!user) return <Box sx={{ p: 3 }}>Loading...</Box>;
 
   return (
-    // <ProtectedRoute>
-    //   <Box sx={{ p: 3, maxWidth: 700, mx: "auto" }}>
-    //     <Box sx={{display:'flex', gap:1, mb:2}}>
-    //       <Button
-    //         component={Link}
-    //         href="/dashboard"
-    //         variant="text"
-    //         size="small"
-    //       >
-    //         Dashboard
-    //       </Button>
-    //       <Typography sx={{ alignSelf: "center" }}>/</Typography>
-    //       <Button
-    //         component={Link}
-    //         href="/dashboard/users"
-    //         variant="text"
-    //         size="small"
-    //       >
-    //         Users
-    //       </Button>
-    //     </Box>
-    //     <Paper sx={{ p: 3 }}>
-    //       <Typography variant="h4">
-    //         {user.firstName} {user.lastName}
-    //       </Typography>
-    //       <Divider sx={{ my: 2 }} />
-    //       <Typography>
-    //         <b>Email:</b> {user.email}
-    //       </Typography>
-    //       <Typography>
-    //         <b>Phone:</b> {user.phone}
-    //       </Typography>
-    //       <Typography>
-    //         <b>Gender:</b> {user.gender}
-    //       </Typography>
-    //       <Typography>
-    //         <b>Age:</b> {user.age}
-    //       </Typography>
-    //       <Typography>
-    //         <b>Company:</b> {user.company?.name}
-    //       </Typography>
-    //       <Typography>
-    //         <b>Address:</b> {user.address?.city}, {user.address?.country}
-    //       </Typography>
-    //     </Paper>
-    //   </Box>
-    // </ProtectedRoute>
 
     <>
           <Box sx={{ p: 3, maxWidth: 700, mx: "auto" }}>

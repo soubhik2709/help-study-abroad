@@ -19,7 +19,6 @@ export default function DashboardPage() {
   const [totalUsers, setTotalUsers] = useState<number | null>(null);
   const [totalProducts, setTotalProducts] = useState<number | null>(null);
   const [error, setError] = useState(false);
-  // const [loading, setLoading] = useState(true);
 
 
   const loadStats = useCallback(()=>{
@@ -50,35 +49,6 @@ useEffect(() => {
   initialize();
 }, [loadStats]);
 
-
-  // const loadStats = () => {
-  //   setError(false);
-
-  //   // Total users
-  //   fetch("/api/proxy/users?limit=1&skip=0")
-  //     .then((r) => {
-  //       if (!r.ok) throw new Error();
-  //       return r.json();
-  //     })
-  //     .then((d) => setTotalUsers(d.total))
-  //     .catch(() => setError(true));
-
-  //   //Total Products
-
-  //   fetch("/api/proxy/products?limit=1&skip=0")
-  //     .then((r) => {
-  //       if (!r.ok) throw new Error();
-  //       return r.json();
-  //     })
-  //     .then((d) => setTotalProducts(d.total))
-  //     .catch(() => setError(true));
-  // };
-
-  // //why use here limit =1?
-
-  // useEffect(() => {
-  //   loadStats();
-  // }, []);
 
   const stats = [
     {
@@ -188,3 +158,11 @@ useEffect(() => {
     </>
   );
 }
+
+
+/* 
+
+  const loadStats = useCallback(()=>{
+   i use here useCallback for stay ahead from multiple rendering. the   loadStats(); funct is changing the states , so useEffect run then state changes then again some rerender happens and this is called cascade rendering, so if this rendering happens then react dev tools, elsint debugger tools may thinks react optimization, infinite renderig, not proper way of using render cascading, so thats why i use the wrap the function in the another function inside the useEffect, now the React doesnt knew about the wrapper funciton. 
+
+*/

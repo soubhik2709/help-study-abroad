@@ -12,7 +12,7 @@ import {
 import { useAuthStore } from "@/store/authStore";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");  // DummyJSON test user
+  const [username, setUsername] = useState("");  
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const login = useAuthStore((s) =>s.login);
@@ -45,7 +45,7 @@ export default function LoginPage() {
   }}
     >
       <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 400 }}>
-        <Typography variant="h5" mb={3} fontWeight="bold">
+        <Typography variant="h5" sx={{ mb:3, fontWeight:"bold"}}>
           Admin Login
         </Typography>
         {error && (

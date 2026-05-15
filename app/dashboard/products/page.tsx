@@ -1,6 +1,5 @@
 "use client";
 // import ProtectedRoute from "@/components/ProtectedRoute";
-
 import { useEffect, useState, useMemo } from "react";
 import { useProductStore, Product } from "@/store/productStore";
 import {
@@ -24,7 +23,7 @@ function debounce<Args extends unknown[]>(
 ) {
   let timer: ReturnType<typeof setTimeout>;
   return (...args: Args) => {
-    //This extracts the real argument types from T
+    //This extracts the real argument types from args
     clearTimeout(timer);
     timer = setTimeout(() => fn(...args), delay);
   };
@@ -38,7 +37,7 @@ export default function ProductsPage() {
       fetchProducts: state.fetchProducts,
       loading: state.loading,
     })),
-  );//the  productstore changes data only render as reference ,untill come from api.
+  );//the  productstore data keep  same refernce from rerendering, untill come from API.
 
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
@@ -47,8 +46,8 @@ export default function ProductsPage() {
 
   useEffect(() => {
     fetchProducts(10, page * 10, search, category);
-  }, [page, search, category, fetchProducts]);
-
+  }, [page, search, category, fetchProducts]); 
+  
   const handleSearch = useMemo(
     () =>
       debounce((val: string) => {
@@ -113,7 +112,7 @@ export default function ProductsPage() {
         <Grid container spacing={2}>
           {products?.map(
             (
-              p: Product, //changes from Product to products
+              p: Product, 
             ) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={p.id}>
                 <ProductCard p={p} />
@@ -149,3 +148,91 @@ export default function ProductsPage() {
     </>
   );
 }
+
+
+
+/*
+What is Debouncing?
+Debouncing means:
+“Wait before executing. If another event happens, reset the timer.” without debounce , every letters make api calls. Means  user typing and for every typing letter the api calls which is prevented.
+
+-----------------------------------------
+step 1 
+function debounce<Args extends unknown[]>(
+
+This is TypeScript generics. It means: This debounce can work with ANY function arguments.
+Example:
+
+debounce((name: string) => {}, 400)
+
+debounce((a: number, b: number) => {}, 400)
+
+----------------
+Step 2
+fn: (...args: Args) => void
+
+Meaning:
+fn is a function
+that accepts:
+
+...args measns  (arguments)
+
+and returns: void
+
+Example
+If:
+
+debounce((val: string) => {}, 400)
+
+Then:
+
+Args = [string]
+
+----------------
+Step 3
+delay: number
+
+Step 4
+let timer: ReturnType<typeof setTimeout>;
+
+It is saying:
+
+“The variable timer should have the SAME type as whatever setTimeout() returns.”
+setTimeout can return number  for browser or object for nodejs envrionment. That  returns value store on the varaible, which is used to cancel timeout later.
+TypeScript asks:
+
+What TYPE is timer?
+
+Is it:
+
+number?
+object?
+string?
+
+We must define it.
+
+Browser return setTimeout number, but Nodejs reuturn object.
+
+Prart1 :typeof setTimeout------------
+
+means:
+Get the TYPE of setTimeout function
+
+
+Part2 :ReturnType<T> is a built-in TypeScript utility type.--------
+
+It extracts:
+the return type of a function
+
+
+step 5 
+debouce return this functions and this fun is differ from the handleSearch fun . the differenc is setTimeout has  not extra clearTimeout present in the hanldeSearch.
+(val) => {
+  clearTimeout(timer);
+
+  timer = setTimeout(() => {
+    setSearch(val);
+    setPage(0);
+  }, 400);
+}
+*/

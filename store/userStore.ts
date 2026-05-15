@@ -85,3 +85,8 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 }));
 
+
+// cacheKey = `${skip}-${search}`; ->
+// WHY CACHING: Avoids re-fetching the same page when user navigates back.
+// STRATEGY: Key = `${skip}-${search}`. Stored in Zustand memory for the session.
+// Only caches successful responses with data (empty arrays are not cached).

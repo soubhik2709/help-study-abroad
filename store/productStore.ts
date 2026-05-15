@@ -41,7 +41,7 @@ export const useProductStore = create<ProductState>((set) => ({
         throw new Error("Failed to fetch users");
       }
       const data = await res.json();
-      console.log("the products is ",data);
+      console.log("the products data  is ",data);
 
       const products = data.products ?? [];
 

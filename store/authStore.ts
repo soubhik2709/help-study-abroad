@@ -15,7 +15,7 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>()(
-  persist( //middleware to save data from refresh
+  persist( //middleware to save data to localStorage from refresh
     (set) => ({
       token: null,
       user: null,
@@ -40,48 +40,8 @@ export const useAuthStore = create<AuthState>()(
 );
 
 
-// import { create } from "zustand";
-// import { persist } from "zustand/middleware";
+/* 
+Why --> Promise use here ? login: (username: string, password: string) => Promise<void>;
+login is async function , if i write async with function name then it become async.so it return promise.so it finishes later. Here it does not return data.
 
-// interface AuthUser {
-//   username: string;
-// }
-
-// interface AuthState {
-//   user: AuthUser | null;
-//   token: string | null;
-
-//   login: (username: string, password: string) => Promise<void>;
-//   logout: () => void;
-// }
-
-// export const useAuthStore = create<AuthState>()(
-//   persist(
-//     (set) => ({
-//       user: null,
-//       token: null,
-
-//       login: async (username, password) => {
-//         // fake login
-//         if (username === "admin" && password === "1234") {
-//           set({
-//             user: { username },
-//             token: "fake-jwt-token",
-//           });
-//         } else {
-//           throw new Error("Invalid credentials");
-//         }
-//       },
-
-//       logout: () => {
-//         set({
-//           user: null,
-//           token: null,
-//         });
-//       },
-//     }),
-//     {
-//       name: "auth-storage",
-//     }
-//   )
-// );
+*/
