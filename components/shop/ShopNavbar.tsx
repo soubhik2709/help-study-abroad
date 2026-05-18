@@ -9,22 +9,22 @@ import {
 
 export default function ShopNavbar() {
   return (
-    <header className=" w-full bg-[#1e293b] text-white shadow-md ">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 ">
+    <header className=" w-full bg-gray-900 text-white shadow-md ">
+      <div className="w-full px-3 ">
         {/* This px not work */}
         <div className="h-16 md:h-20  w-full  mx-auto flex flex-wrap  md:flex-nowrap items-center justify-between gap-3 md:gap-4 min-w-0">
           {/* here if i write the  px then aslo not work */}
 
           {/* Left Section */}
           <section className="flex items-center gap-3  md:gap-6 shrink-0">
-            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-amber-500 whitespace-nowrap">
+            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-rose-400 whitespace-nowrap">
               A2Z_Shop
             </h1>
             <button
               type="button"
               className="hidden sm:flex items-center gap-3 text-left hover:text-slate-300 transition-colors focus:outline-none"
             >
-              <MapPin className="size-4 md:size-5 text-amber-500 shrink-0" />
+              <MapPin className="size-4 md:size-5 text-rose-400shrink-0" />
               <div className="text-xs md:text-sm">
                 <span className="text-slate-400 text-xs md:text-sm">
                   Deliver to Kolkata
@@ -39,9 +39,9 @@ export default function ShopNavbar() {
             {/* For mobile icon */}
             <button
               type="button"
-              className="sm:hidden hover:text-amber-400 transition-colors"
+              className="sm:hidden bg-rose-500 hover:bg-rose-600 transition-colors"
             >
-              <MapPin className="size-5 text-amber-500" />
+              <MapPin className="size-5 bg-rose-500" />
             </button>
           </section>
 
